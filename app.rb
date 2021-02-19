@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'open3'
 require 'json'
+require 'benchmark'
 
 module RMarkdownServe
   class App < Sinatra::Base
@@ -23,7 +24,7 @@ module RMarkdownServe
     
     def md2html(*chunks, &block)
       chunks.map! {|chunk| "doc <- #{chunk.dump}\nprint(knitr::knit2html(text = doc, fragment.only = TRUE, quiet = TRUE))"}
-      open_r("#{knit_pre}\n#{chunks.join("\n")}").split("\n").map {|result| result[4..-1] } # Each result line is of the form: [1] "result" 
+      open_r("#{knit_pre}\n#{chunks.join("\n")}").split("\n").map {|result| result[4..-1].undump } # Each result line is of the form: [1] "result" 
     end
     
     def knit_pre
