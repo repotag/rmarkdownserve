@@ -3,7 +3,7 @@
 A webapp that returns rendered R codeblocks by wrapping calls to `knitr`. Endpoints:
 
 * `/doc2html`: takes a full html doc fragment, knits it as a whole, and returns the rendered doc.
-* `/fragments2html`: Takes JSON array of fragments (codeblock), renders them individually, and returns a JSON array with the rendered fragments.
+* `/fragments2html`: Takes JSON array of fragments (codeblock), renders them individually, and returns a JSON array with the rendered fragments as strings.
 
 Benchmarks required to see what's faster (`/fragments2html` won't require knitr to parse an entire html doc).
 
